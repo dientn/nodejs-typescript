@@ -1,0 +1,76 @@
+version: "3.1"
+
+services:
+
+    jenkin:
+        build:
+            context: ./stacks/jenkins
+        image: jenkins-blueocean
+        container_name: jenkins-blueocean
+        volumes: 
+            - jenkins-data:/var/jenkins_home
+            - jenkins-docker-certs:/certs/client
+        environment:
+            - DOCKER_CERT_PATH=/certs/client
+            - DOCKER_TLS_VERIFY=1
+        networks:
+            - jenkins_net
+        restart: always
+        ports: 
+            - "8080:8080"
+            - "50000:50000"
+    
+    mongodb:
+        build:
+            context: ./stacks/mongodb
+        image: mongo
+        container_name: mongodb
+        ports:
+            - 27017:27017
+        environment:
+            - MONGO_INITDB_DATABASE=test
+            - MONGO_INITDB_ROOT_USERNAME=admin
+            - MONGO_INITDB_ROOT_PASSWORD=admin
+        volumes:
+            # seeding scripts
+            # - ./mongo-entrypoint:/docker-entrypoint-initdb.d
+            # named volumes
+            - mongodb:/data/db
+            - mongoconfig:/data/configdb
+        networks:
+            - mongo_net
+#   client:
+#     build:
+#       context: ./client
+#     container_name: node-client
+#     image: node-client
+#     volumes: 
+#       - ./client/src:/app/src
+#     env_file: ./client/.env
+#     environment:
+#       LOGLEVEL: "info"
+#     command: /bin/sh -c "npm start"
+#     # restart: always
+
+#   math:
+#     build:
+#       context: ./math
+#     image: node-math
+#     container_name: node-math
+#     volumes: 
+#       - ./math/src:/app/src
+#     env_file: ./math/.env
+#     environment:
+#       LOGLEVEL: "info"
+#     command: /bin/sh -c "npm start"
+#     # restart: always
+volumes:
+    jenkins-data:
+    jenkins-docker-certs:
+    mongodb:
+    mongoconfig:
+networks:
+    jenkins_net:
+    mongo_net: 
+        driver: bridge
+

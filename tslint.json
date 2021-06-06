@@ -1,0 +1,16 @@
+{
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "rules": {
+    "quotemark": false,
+    "no-console": false,
+    "trailing-comma": false,
+    "ordered-imports": false,
+    "object-literal-sort-keys": false,
+    "arrow-parens": false,
+    "variable-name": [
+      true,
+      "allow-leading-underscore"
+    ]
+  }
+}
