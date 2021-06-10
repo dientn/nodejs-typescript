@@ -1,21 +1,48 @@
 version: "3.1"
 
 services:
-
+    jenkin-docker:
+        image: docker:dind
+        container_name: jenkin-docker
+        user: root
+        volumes: 
+            # - ./jenkins/data:/var/jenkins_home
+            - jenkins-docker-certs:/certs/client
+            - jenkins-data:/var/jenkins_home
+            # - ./jenkins/certs:/certs/client
+        environment:
+            # - DOCKER_CERT_PATH=/certs/client
+            - DOCKER_TLS_CERTDIR=/certs
+        networks:
+            jenkins_net:
+                aliases:
+                    - docker
+        ports: 
+            - "2375:2375"
+        restart: always
     jenkin:
+        
         build:
             context: ./stacks/jenkins
         image: jenkins-blueocean
         container_name: jenkins-blueocean
         volumes: 
+            - jenkins-docker-certs:/certs/client:ro
             - jenkins-data:/var/jenkins_home
-            - jenkins-docker-certs:/certs/client
+            # - /var/run/docker.sock:/var/run/docker.sock
+            # - /usr/local/bin/docker:/usr/local/bin/docker
+            # - /usr/bin/docker:/usr/bin/docker
+            # - ./jenkins/data:/var/jenkins_home
+            # - ./jenkins/certs:/certs/client
         environment:
+            - DOCKER_HOST=tcp://host.docker.internal:2375
             - DOCKER_CERT_PATH=/certs/client
-            - DOCKER_TLS_VERIFY=1
+            # - DOCKER_TLS_VERIFY=1
         networks:
             - jenkins_net
         restart: always
+        links:
+            - "jenkin-docker"
         ports: 
             - "8080:8080"
             - "50000:50000"
@@ -39,6 +66,7 @@ services:
             - mongoconfig:/data/configdb
         networks:
             - mongo_net
+        restart: always
 #   client:
 #     build:
 #       context: ./client
