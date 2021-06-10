@@ -10,5 +10,6 @@ module.exports = {
   coverageReporters: ['json', 'text', 'lcov', 'clover'],
   testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
   modulePathIgnorePatterns: ['<rootDir>/src/import-undefined-issue'],
+  moduleFileExtensions: ["ts"],
   verbose: true,
 };
