@@ -9,3 +9,5 @@ yarn-error.log*
 .idea
 .DS_STORE
 .tmp
+jenkins/data
+jenkins/certs
