@@ -12,17 +12,21 @@ const mongooseOpts = {
     // options for mongoose 4.11.3 and above
     autoReconnect: true,
     reconnectTries: Number.MAX_VALUE,
+    useNewUrlParser: true,
     reconnectInterval: 1000,
+    useFindAndModify:true,
+    useUnifiedTopology: true
   };
 beforeAll(async () => {
   const mongoUri = await mongoServer.getUri();
   await mongoose.connect(mongoUri, mongooseOpts, (err) => {
-    if (err) { console.error(err); }
+    if (err) { console.error(err); process.exit(1) }
   });
   mongoose.connection.once('open', () => {
     console.log(`MongoDB Test successfully connected to ${mongoUri}`);
   });
 
+  await mongoose.model("User").deleteMany();
   // Seed data for test if we need
 });
 
@@ -103,7 +107,7 @@ describe('Users Endpoints', () => {
     expect(res.body).toHaveProperty('error');
   });
 
-  it('should delete a post', async () => {
+  it('should delete a user', async () => {
     const res = await request(app).delete(`/api/users/${userId}`);
     expect(res.status).toEqual(204);
   });
