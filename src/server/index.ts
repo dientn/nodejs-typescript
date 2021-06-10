@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // console.log(Object.keys(process.env))
+import './database'
 import server from './server';
 
 // import  './database';
