@@ -7,7 +7,8 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 // // May require additional time for downloading MongoDB binaries
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
 
-const mongoServer = new MongoMemoryServer();;
+const mongoServer = new MongoMemoryServer();
+
 const mongooseOpts = {
     // options for mongoose 4.11.3 and above
     autoReconnect: true,
@@ -19,6 +20,7 @@ const mongooseOpts = {
   };
 beforeAll(async () => {
   const mongoUri = await mongoServer.getUri();
+  // await conn.c(mongoUri, mongooseOpts); // open connection to database (NOT `connect` method!)
   await mongoose.connect(mongoUri, mongooseOpts, (err) => {
     if (err) { console.error(err); process.exit(1) }
   });
@@ -32,9 +34,9 @@ beforeAll(async () => {
 
 afterAll(async () => {
   // Clear the tested and seeded data
-  // await mongoose.model("User").deleteMany();
+  // await mongoose.model("User").remove();
   // Drop collection for this test and related
-  await mongoose.connection.db.dropCollection('users');
+  // await mongoose.connection.db.dropCollection('users');
 
   await mongoose.disconnect();
   await mongoServer.stop();
