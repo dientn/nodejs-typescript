@@ -1,43 +1,22 @@
 version: "3.1"
 
 services:
-    jenkin-docker:
-        image: docker:dind
-        container_name: jenkin-docker
-        user: root
-        volumes: 
-            # - ./jenkins/data:/var/jenkins_home
-            - jenkins-docker-certs:/certs/client
-            - jenkins-data:/var/jenkins_home
-            # - ./jenkins/certs:/certs/client
-        environment:
-            # - DOCKER_CERT_PATH=/certs/client
-            - DOCKER_TLS_CERTDIR=/certs
-        networks:
-            jenkins_net:
-                aliases:
-                    - docker
-        ports: 
-            - "2375:2375"
-        restart: always
     jenkin:
-        
         build:
             context: ./stacks/jenkins
         image: jenkins-blueocean
         container_name: jenkins-blueocean
+        privileged: true
+        user: root
+
+        environment:
+            - DOCKER_CERT_PATH=/certs/client
+            - DOCKER_HOST=unix:///var/run/docker.sock
         volumes: 
             - jenkins-docker-certs:/certs/client:ro
             - jenkins-data:/var/jenkins_home
-            # - /var/run/docker.sock:/var/run/docker.sock
-            # - /usr/local/bin/docker:/usr/local/bin/docker
-            # - /usr/bin/docker:/usr/bin/docker
-            # - ./jenkins/data:/var/jenkins_home
-            # - ./jenkins/certs:/certs/client
-        environment:
-            - DOCKER_HOST=tcp://host.docker.internal:2375
-            - DOCKER_CERT_PATH=/certs/client
-            # - DOCKER_TLS_VERIFY=1
+            - /var/run/docker.sock:/var/run/docker.sock
+            
         networks:
             - jenkins_net
         restart: always

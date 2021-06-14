@@ -10,8 +10,16 @@ Learning Nodejs CI/CD
 sudo docker-compose up -d --build
 ```
 
-0ec5e1cb1b35459e986f1bc37a4b3d63
-Admin123
+## Accessing the Jenkins Docker container
+
+```bash
+docker exec -it jenkins-blueocean bash
+```
+Disable git ssl
+
+```bash
+git config --global http.sslverify false
+```
 
 
 ## Test

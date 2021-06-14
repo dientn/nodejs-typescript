@@ -26,13 +26,13 @@ beforeAll(async () => {
     console.log(`MongoDB Test successfully connected to ${mongoUri}`);
   });
 
-  await mongoose.model("User").deleteMany();
+  // await mongoose.model("User").deleteMany();
   // Seed data for test if we need
 });
 
 afterAll(async () => {
   // Clear the tested and seeded data
-  await mongoose.model("User").deleteMany();
+  // await mongoose.model("User").deleteMany();
   // Drop collection for this test and related
   await mongoose.connection.db.dropCollection('users');
 
