@@ -11,3 +11,4 @@ yarn-error.log*
 .tmp
 jenkins/data
 jenkins/certs
+junit.xml
