@@ -1,0 +1,25 @@
+node {
+    stage('Preparation') { // for display purposes
+        // Get some code from a GitHub repository
+        git branch: 'main',
+            url: 'https://github.com/dientn/nodejs-typescript.git'
+    }
+    stage('Build') {
+        docker.image('mongo:4.2.3-bionic')
+        .withRun('-e MONGO_INITDB_DATABASE=test -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin -p 27018:27017') { c ->
+            /* Run some tests which require Mongodb */
+            
+            docker.image('mongo:4.2.3-bionic').inside("--link ${c.id}:db") {
+                /* Wait until mysql service is up */
+            //   sh 'npm install' 
+                sh "while ! mongo 'mongodb://db:27018'; do sleep 10; done"
+                // sh " mongo 'mongodb://admin:admin@host.docker.internal:27018/test?authSource=admin'"
+                // sh "mongo 'mongodb://host.docker.internal:27018'"
+            // sh "mongo 'mongodb://db:27018'"
+                sh "echo 'Success'"
+            //   sh "npm test"
+            }
+            
+        }
+    }
+}
