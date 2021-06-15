@@ -1,12 +1,15 @@
 import request from 'supertest';
 import app from '../../server/server';
-import connectDb from '../../server/database';
+// import connectDb from '../../server/database';
 // import User from '../../server/models/user';
+import { MongoMemoryServer } from 'mongodb-memory-server';
 
+let mongoServer: MongoMemoryServer;
 import mongoose from 'mongoose';
 
 // // May require additional time for downloading MongoDB binaries
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
+jest.setTimeout(600000);
 const mongooseOpts = {
     // options for mongoose 4.11.3 and above
     autoReconnect: true,
@@ -17,7 +20,12 @@ const mongooseOpts = {
     useUnifiedTopology: true
   };
 beforeAll(async () => {
-  await connectDb(mongooseOpts);
+  mongoServer = new MongoMemoryServer();
+  const mongoUri = await mongoServer.getUri();
+  await mongoose.connect(mongoUri, mongooseOpts, (err) => {
+    if (err) console.error(err);
+  });
+  // await connectDb(mongooseOpts);
   // await mongoose.model("User").deleteMany();
   // Seed data for test if we need
 
@@ -25,12 +33,15 @@ beforeAll(async () => {
 
 afterAll(async () => {
   // Clear the tested and seeded data
-  // await User.deleteMany(err =>{
-  //   console.error(err);
-  // });
+  await mongoose.model("User").deleteMany(err =>{
+    if (err) {
+      console.error(err);
+    }
+  });
   // Drop collection for this test and related
-  // await mongoose.connection.db.dropCollection('users');
-  await mongoose.disconnect()
+  await mongoose.connection.db.dropCollection('users');
+  await mongoose.disconnect();
+  await mongoServer.stop();
 });
 
 describe('Users Endpoints', () => {
