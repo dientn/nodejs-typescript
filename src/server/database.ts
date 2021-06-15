@@ -15,16 +15,22 @@ const mongooseOpts = {
   useNewUrlParser: true
 };
 
-mongoose.connect(mongoUri, mongooseOpts);
+const connectDb = async (opts = {}) =>{
+  const dbOpts = {...mongooseOpts, ...opts}
+  await mongoose.connect(mongoUri, dbOpts);
 
-mongoose.connection.on('error', (e) => {
-  if (e.message.code === 'ETIMEDOUT') {
+  mongoose.connection.on('error', (e) => {
+    if (e.message.code === 'ETIMEDOUT') {
+      console.log(e);
+      mongoose.connect(mongoUri, mongooseOpts);
+    }
     console.log(e);
-    mongoose.connect(mongoUri, mongooseOpts);
-  }
-  console.log(e);
 });
 
-mongoose.connection.once('open', () => {
-  console.log(`MongoDB successfully connected to ${mongoUri}`);
-});
+  mongoose.connection.once('open', () => {
+    console.log(`MongoDB successfully connected to ${mongoUri}`);
+  });
+}
+
+
+export default connectDb 

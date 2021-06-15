@@ -6,7 +6,7 @@ module.exports = {
   setupFiles: [
   ],
   rootDir: "src",
-  setupFilesAfterEnv: ['../jest.setup.js'],
+  setupFilesAfterEnv: ['../jest.setup.ts'],
   coverageReporters: ['json', 'text', 'lcov', 'clover'],
   testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
   modulePathIgnorePatterns: ['<rootDir>/src/import-undefined-issue'],

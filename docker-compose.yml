@@ -16,12 +16,14 @@ services:
             - jenkins-docker-certs:/certs/client:ro
             - jenkins-data:/var/jenkins_home
             - /var/run/docker.sock:/var/run/docker.sock
+            # - ./jenkins/app:/app
             
         networks:
             - jenkins_net
+            - mongo_net
         restart: always
         links:
-            - "jenkin-docker"
+            - mongodb
         ports: 
             - "8080:8080"
             - "50000:50000"
@@ -46,31 +48,6 @@ services:
         networks:
             - mongo_net
         restart: always
-#   client:
-#     build:
-#       context: ./client
-#     container_name: node-client
-#     image: node-client
-#     volumes: 
-#       - ./client/src:/app/src
-#     env_file: ./client/.env
-#     environment:
-#       LOGLEVEL: "info"
-#     command: /bin/sh -c "npm start"
-#     # restart: always
-
-#   math:
-#     build:
-#       context: ./math
-#     image: node-math
-#     container_name: node-math
-#     volumes: 
-#       - ./math/src:/app/src
-#     env_file: ./math/.env
-#     environment:
-#       LOGLEVEL: "info"
-#     command: /bin/sh -c "npm start"
-#     # restart: always
 volumes:
     jenkins-data:
     jenkins-docker-certs:
@@ -78,6 +55,7 @@ volumes:
     mongoconfig:
 networks:
     jenkins_net:
+        driver: bridge
     mongo_net: 
         driver: bridge
 
