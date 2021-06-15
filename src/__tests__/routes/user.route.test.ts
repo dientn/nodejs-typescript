@@ -1,7 +1,7 @@
 import request from 'supertest';
 import app from '../../server/server';
 import connectDb from '../../server/database';
-import User from '../../server/models/user';
+// import User from '../../server/models/user';
 
 import mongoose from 'mongoose';
 
