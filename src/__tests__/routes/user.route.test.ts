@@ -1,6 +1,7 @@
 import request from 'supertest';
 import app from '../../server/server';
 import connectDb from '../../server/database';
+import User from '../../server/models/user';
 
 import mongoose from 'mongoose';
 
@@ -17,16 +18,18 @@ const mongooseOpts = {
   };
 beforeAll(async () => {
   await connectDb(mongooseOpts);
-  await mongoose.model("User").deleteMany();
+  // await mongoose.model("User").deleteMany();
   // Seed data for test if we need
 
 });
 
 afterAll(async () => {
   // Clear the tested and seeded data
-  await mongoose.model("User").deleteMany({});
+  // await User.deleteMany(err =>{
+  //   console.error(err);
+  // });
   // Drop collection for this test and related
-  await mongoose.connection.db.dropCollection('users');
+  // await mongoose.connection.db.dropCollection('users');
   await mongoose.disconnect()
 });
 
