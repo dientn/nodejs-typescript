@@ -20,7 +20,14 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'npm run test:ci'
-                junit './test_reports/junit.xml'
+                sh 'ls .'
+            }
+            post {
+                // If Maven was able to run the tests, even if some of the test
+                // failed, record the test results and archive the jar file.
+                success {
+                    junit '**/test_reports/junit.xml'
+                }
             }
         }
         stage('Deploy') { 
