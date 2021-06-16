@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'npm test'
+                sh 'npm run test:ci'
                 junit './test_reports/junit.xml'
             }
         }
