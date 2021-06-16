@@ -5,6 +5,7 @@ dotenv.config();
 
 import connectDb from './database'
 import server from './server';
+import './configs/passport'
 
 connectDb()
 
