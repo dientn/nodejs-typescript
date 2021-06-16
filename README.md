@@ -20,6 +20,17 @@ Disable git ssl
 ```bash
 git config --global http.sslverify false
 ```
+Setup wizard jenkins follow this [link](https://www.jenkins.io/doc/book/installing/docker/#setup-wizard)
+
+
+## Create Jenkins pipeline 
+
+Create a pipeline follow this [link](https://www.jenkins.io/doc/book/pipeline/getting-started/), and use this reporsitory instead of the Repository URL at the Pipeline section
+
+
+
+
+
 
 
 ## Test
