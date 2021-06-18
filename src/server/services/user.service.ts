@@ -1,5 +1,5 @@
 import { Service } from "typedi";
-import { IUser } from "../models/User";
+import { IUser } from "../models/user";
 import UserRepository from "../repositories/user.repository";
 
 @Service()
