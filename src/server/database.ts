@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import config from './configs';
 
-const mongoUri = config.get("DATABASE_URI");
+const mongoUri = config.databaseUri;
 
 console.log("=============", mongoUri)
 

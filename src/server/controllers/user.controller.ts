@@ -11,7 +11,10 @@ class UserController {
 
   public async createUser (req: any, res: any) {
     try {
-      const user = await this.userService.createUser(req.body);
+      const userCreated = await this.userService.createUser(req.body);
+      let user = { ...userCreated?.toJSON() }
+      delete user.password;
+      
       return res.status(201).json({
         user
       });
@@ -25,8 +28,10 @@ class UserController {
     try {
       const { userId } = req.params;
       const user = await this.userService.getUser(userId);
+      let userToReturn = { ...user?.toJSON() }
+      delete userToReturn.password;
       if (user) {
-        return res.status(200).json({ user });
+        return res.status(200).json({ user: userToReturn });
       }
       return res.status(404).send({ error: "User with the specified ID does not exists" });
     } catch (error) {
@@ -38,8 +43,10 @@ class UserController {
     try {
       const { userId } = req.params;
       const updated = await this.userService.updateUser(userId, req.body);
+      let user  = { ...updated?.toJSON() }
+      delete user.password;
       if (updated) {
-        return res.status(200).json({ user: updated });
+        return res.status(200).json({ user });
       }
       return res.status(404).send({error: "User not found"});
     } catch (error) {

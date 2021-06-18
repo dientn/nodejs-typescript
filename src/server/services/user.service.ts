@@ -10,13 +10,18 @@ class UserService {
     return result;
   }
 
+  public async getUserByEmail(email:string): Promise<IUser | null> {
+    const user = await this.userRepository.getUserByEmail(email);
+    return user;
+  }
+
   public async getUser(id: string): Promise<IUser | null> {
     const result = await this.userRepository.getUser(id);
     return result;
   }
 
-  public async createUser(id: string): Promise<IUser | null> {
-    const result = await this.userRepository.createUser(id);
+  public async createUser(data: any): Promise<IUser | null> {
+    const result = await this.userRepository.createUser(data);
     return result;
   }
 

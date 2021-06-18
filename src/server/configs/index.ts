@@ -1,16 +1,14 @@
-class Config {
-    get(key: string, defaultValue: any = ''){
-        return process.env[key] || defaultValue || '';
-    }
+import env from '../helpers/environment';
 
-    getAsString(key: string, defaultValue: any = ''): string{
-        return (process.env[key] || defaultValue || '') as string;
+const config = {
+    databaseUri: env.getAsString('DATABASE_URI'),
+    Jwt: {
+        secret: env.getAsString('JWT_SECRET ', 'nodejs_app'),
+        expiresIn: env.getAsString('JWT_EXPIRES_IN', '2h'),
+    },
+    server: {
+        port: env.getAsNumber('PORT', 3000)
     }
-
-    getAsNumber(key: string, defaultValue: any = ''): Number{
-        return (process.env[key] || defaultValue || '') as Number;
-    }
-
 }
 
-export default new Config()
+export default config

@@ -48,6 +48,20 @@ services:
         networks:
             - mongo_net
         restart: always
+    node-server:
+        build: ./stacks/node
+        image: node-server
+        container_name: node-server
+        hostname: node-server
+        networks:
+            - jenkins_net
+            - mongo_net
+        restart: always
+        depends_on:
+            - mongodb
+        ports: 
+            - "3000:3000"
+        command: "npm start"
 volumes:
     jenkins-data:
     jenkins-docker-certs:

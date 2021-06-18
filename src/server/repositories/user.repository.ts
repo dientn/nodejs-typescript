@@ -5,17 +5,21 @@ import User, { IUser } from "../models/user";
 class UserRepository {
 
   public async getAllUsers(): Promise<IUser[]> {
-    return await User.find();
+    return await User.find().select('-password');
+  }
+
+  public async getUserByEmail(email:string): Promise<IUser | null> {
+    const user = await User.findOne({email});
+    return user;
   }
 
   public async getUser(id:string): Promise<IUser | null> {
-    const user = await User.findById(id);
+    const user = await User.findById(id).select('-password');
     return user;
   }
 
   public async createUser(data:any): Promise<IUser> {
-    const user = new User(data); 
-    await user.save();
+    const user = await User.create(data); 
     return user;
   }
 
