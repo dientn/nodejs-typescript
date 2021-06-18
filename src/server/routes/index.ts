@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { Router } from 'express';
-import UserRoute from './routes/user.route';
-import AuthRoute from './routes/auth.route';
+import UserRoute from './user.route';
+import AuthRoute from './auth.route';
 import passport from 'passport';
 
 const router = Router(); 

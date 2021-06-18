@@ -20,8 +20,8 @@ class UserService {
     return result;
   }
 
-  public async createUser(id: string): Promise<IUser | null> {
-    const result = await this.userRepository.createUser(id);
+  public async createUser(data: any): Promise<IUser | null> {
+    const result = await this.userRepository.createUser(data);
     return result;
   }
 

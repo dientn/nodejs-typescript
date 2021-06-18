@@ -5,7 +5,7 @@ import User, { IUser } from "../models/user";
 class UserRepository {
 
   public async getAllUsers(): Promise<IUser[]> {
-    return await User.find();
+    return await User.find().select('-password');
   }
 
   public async getUserByEmail(email:string): Promise<IUser | null> {
@@ -14,7 +14,7 @@ class UserRepository {
   }
 
   public async getUser(id:string): Promise<IUser | null> {
-    const user = await User.findById(id);
+    const user = await User.findById(id).select('-password');
     return user;
   }
 

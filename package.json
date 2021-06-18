@@ -46,8 +46,8 @@
   "dependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/mongoose": "^5.10.5",
+    "@types/randomstring": "^1.1.6",
     "bcrypt": "^5.0.1",
-    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
@@ -56,6 +56,8 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "prop-types": "^15.7.2",
+    "random-hash": "^4.0.1",
+    "randomstring": "^1.2.1",
     "reflect-metadata": "^0.1.13",
     "ts-node": "^9.1.1",
     "typedi": "^0.10.0",

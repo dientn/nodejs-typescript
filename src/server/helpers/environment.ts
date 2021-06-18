@@ -4,11 +4,11 @@ class Environment {
     }
 
     getAsString(key: string, defaultValue: any = ''): string{
-        return (process.env[key] || defaultValue || '') as string;
+        return this.get(key, defaultValue) as string;
     }
 
-    getAsNumber(key: string, defaultValue: any = ''): Number{
-        return (process.env[key] || defaultValue || '') as Number;
+    getAsNumber(key: string, defaultValue: any = ''): number{
+        return this.get(key, defaultValue) as number;
     }
 
 }

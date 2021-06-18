@@ -5,15 +5,17 @@ import config from './index';
 
 passport.use(
   new Strategy (
-    { ...config.passport,
+    { 
+      secretOrKey: config.Jwt.secret ,
       jwtFromRequest:  ExtractJwt.fromAuthHeaderAsBearerToken()
     },
-    async (token: { user: any; }, done: (arg0: null, arg1?: undefined) => void) => {
-      try {
-        return done(null, token.user);
-      } catch (error) {
-        done(error);
-      }
+    async (payload: any, done: (arg0: null, arg1?: undefined) => void) => {
+        if(payload.user){
+            return done(null, payload.user);
+        }
+        else{
+            return done(null);
+        }
     }
   )
 );

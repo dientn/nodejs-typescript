@@ -6,7 +6,7 @@ export interface IUser extends Document {
   firstName: string;
   lastName: string;
   password: string;
-  authenticate: Function;
+  isValidPassword: Function;
   hashPassword: Function;
 
 }
@@ -17,7 +17,6 @@ const userSchema: Schema<IUser> = new Schema<IUser>({
   lastName: { type: String, required: true },
   password: { type: String, required: true }
 });
-
 
 
 userSchema.methods.hashPassword = async  function(password: string) {
