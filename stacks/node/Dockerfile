@@ -14,6 +14,8 @@ RUN git clone https://github.com/dientn/nodejs-typescript.git /app
 
 RUN npm install
 
+RUN cp .env.example .env
+
 ENTRYPOINT ["sh", "/entrypoint/docker-entrypoint.sh"]
 
 # THIS PART WILL BE REPLACED IF YOU PASS SOME OTHER COMMAND TO docker RUN
