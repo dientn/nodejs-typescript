@@ -15,11 +15,7 @@ sudo docker-compose up -d --build
 ```bash
 docker exec -it jenkins-blueocean bash
 ```
-Disable git ssl
 
-```bash
-git config --global http.sslverify false
-```
 Setup wizard jenkins follow this [link](https://www.jenkins.io/doc/book/installing/docker/#setup-wizard)
 
 
