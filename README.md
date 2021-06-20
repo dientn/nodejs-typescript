@@ -6,8 +6,8 @@ Learning Nodejs CI/CD
 
 ## Setup
 ```bash
-#sudo docker-compose build
-sudo docker-compose up -d --build
+#docker-compose build
+docker-compose up -d --build
 ```
 
 ## Accessing the Jenkins Docker container
