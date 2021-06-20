@@ -19,3 +19,5 @@ VOLUME ["/app"]
 
 USER jenkins
 RUN jenkins-plugin-cli --plugins "blueocean:1.24.6 docker-workflow:1.26"
+
+RUN git config --global http.sslverify false

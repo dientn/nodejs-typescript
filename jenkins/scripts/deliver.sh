@@ -3,6 +3,6 @@ docker exec -it node-server bash <<EOF
  cd /app/nodejs-typescript 
  git pull      
  npm install
- npm start
+ pm2 reload ecosystem.config.js
  exit      
 EOF

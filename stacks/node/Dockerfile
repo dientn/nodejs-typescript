@@ -1,22 +1,27 @@
 FROM node:14
 
-COPY ./entrypoint/docker-entrypoint.sh /entrypoint/docker-entrypoint.sh
-RUN chmod +x /entrypoint
+## for Use SSH 
+# COPY ./entrypoint/docker-entrypoint.sh /entrypoint/docker-entrypoint.sh
+# RUN chmod +x /entrypoint
 
 RUN apt-get update
-RUN apt-get -y install ssh 
-RUN apt-get install -y openssh-server
-RUN service ssh start
-RUN echo 'root:Docker' | chpasswd
+# RUN apt-get -y install ssh 
+# RUN apt-get install -y openssh-server
+# RUN service ssh start
+# RUN echo 'root:Docker' | chpasswd
 WORKDIR /app
+
+RUN npm install pm2 -g
 
 RUN git clone https://github.com/dientn/nodejs-typescript.git /app
 
-RUN npm install
+RUN npm install --production
+
+RUN npm install ts-node -g
 
 RUN cp .env.example .env
-
-ENTRYPOINT ["sh", "/entrypoint/docker-entrypoint.sh"]
+## for Use SSH 
+# ENTRYPOINT ["sh", "/entrypoint/docker-entrypoint.sh"]
 
 # THIS PART WILL BE REPLACED IF YOU PASS SOME OTHER COMMAND TO docker RUN
 # CMD cd /app/nodejs-typescript & npm start

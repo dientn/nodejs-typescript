@@ -56,12 +56,12 @@ services:
         networks:
             - jenkins_net
             - mongo_net
-        restart: always
+        # restart: always
         depends_on:
             - mongodb
         ports: 
             - "3000:3000"
-        command: "npm start"
+        # command: "pm2 start ecosystem.config.js"
 volumes:
     jenkins-data:
     jenkins-docker-certs:
