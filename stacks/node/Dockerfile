@@ -17,8 +17,6 @@ RUN git clone https://github.com/dientn/nodejs-typescript.git /app
 
 RUN npm install --production
 
-RUN npm install ts-node -g
-
 RUN cp .env.example .env
 ## for Use SSH 
 # ENTRYPOINT ["sh", "/entrypoint/docker-entrypoint.sh"]

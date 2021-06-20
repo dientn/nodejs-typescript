@@ -1,7 +1,7 @@
 module.exports = {
     apps : [{
       name: "app",
-      script: "src/index.ts",
+      script: "npm start",
       watch       : true,
       env: {
         NODE_ENV: "development",
